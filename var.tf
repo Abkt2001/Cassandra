@@ -109,3 +109,9 @@ variable "ingress_with_cidr_blocks_database" {
   default     = [{ from_port = 22, to_port = 22, protocol = "tcp", description = "By Bastion Access", cidr_blocks = "12.0.101.0/24" }]
   description = "Enter the ports and cidrs you want to open"
 }
+
+variable "profile_name" {
+  type        = string
+  description = "Enter the profile name"
+  default     = "ec2-ansible"
+}
