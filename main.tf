@@ -13,7 +13,7 @@ data "http" "ip" {
 
 module "vpc" {
   source             = "terraform-aws-modules/vpc/aws"
-  name               = "cassandra-vpc"
+  name               = var.vpc_name
   cidr               = var.vpc_cidr
   azs                = var.az
   private_subnets    = var.private_subnets
@@ -37,14 +37,14 @@ module "Cassandra-bastion-security-group" {
 
 module "ec2_instance_public" {
   source                 = "terraform-aws-modules/ec2-instance/aws"
-  count                  = length(module.vpc.public_subnets) 
-  ami                    = var.ami_id                        #"ami-070a60b7fec87131f" 
+  count                  = length(module.vpc.public_subnets)
+  ami                    = var.ami_id 
   instance_type          = var.public_ec2_type
   subnet_id              = module.vpc.public_subnets[0]
   vpc_security_group_ids = [module.Cassandra-bastion-security-group.security_group_id]
   key_name               = var.public_key_name
   name                   = var.public_instance_name
-  iam_instance_profile   = "ec2-ansible"
+  iam_instance_profile   = var.profile_name 
 
   # tags                 = merge(var.default_tags,{ Name = var.public_instance_name })
 }
@@ -64,7 +64,7 @@ module "Cassandra-private-security-group" {
 
 module "ec2_instance_private" {
   source                 = "terraform-aws-modules/ec2-instance/aws"
-  count                  = length(module.vpc.private_subnets) 
+  count                  = length(module.vpc.private_subnets)
   ami                    = var.ami_id
   instance_type          = var.private_ec2_type
   subnet_id              = module.vpc.private_subnets[count.index]

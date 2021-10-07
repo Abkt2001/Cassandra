@@ -16,7 +16,7 @@ output "ec2_instance_private" {
 }
 
 output "ec2_instance_public_ip" {
-  value = module.ec2_instance_public
+  value = module.ec2_instance_public[0].private_dns
 }
 
 output "ip" {
