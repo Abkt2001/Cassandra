@@ -101,7 +101,8 @@ locals {
 # type        = list(any)
 # default     = [{ from_port = 22, to_port = 22, protocol = "tcp", description = "Public Access", cidr_blocks = "0.0.0.0/0" }]
 # description = "Enter the ports and cidrs you want to open"
-# }
+# 
+#}
 
 
 variable "ingress_with_cidr_blocks_database" {
