@@ -73,7 +73,7 @@ variable "ami_id" {
 
 variable "default_tags" {
   type        = map(any)
-  default     = { ENV = "Database", Owner = "Abhishek", company = "Opstree" }
+  default     = { ENV = "Database", Owner = "Abhishek", company = "" }
   description = "Enter the tags"
 }
 
